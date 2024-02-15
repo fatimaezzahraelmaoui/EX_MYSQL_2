@@ -1,0 +1,47 @@
+show databases ;
+
+use test2 ;
+
+show tables ;
+
+CREATE TABLE clients (
+    id_client INT PRIMARY KEY,
+    nom VARCHAR(20),
+    prenom VARCHAR(20),
+    email VARCHAR(20),
+    adresse VARCHAR(20),
+    telephone VARCHAR(15)
+);
+
+DESC clients ;
+
+CREATE TABLE produits (
+    id_produit INT PRIMARY KEY,
+    nom VARCHAR(255),
+    description TEXT,
+    prix DECIMAL(10, 2),
+    stock INT
+);
+
+DESC produits;
+
+CREATE TABLE commandes (
+    id_commande INT PRIMARY KEY,
+    id_client INT,
+    date_commande DATE,
+    statut VARCHAR(20) ,
+    total INT
+);
+
+DESC commandes ;
+
+ALTER TABLE commandes
+DEFAULT 'en cours' CHECK (statut IN ('en cours', 'livrée', 'annulée'));
+
+ALTER TABLE commandes
+ADD CONSTRAINT FK_clientcommande FOREIGN KEY (id_client) REFERENCES clients(id_client) ;
+
+INSERT INTO commandes (id_commande , id_client , date_commande , statut , total )
+VALUES (1 , 34561 , 2024 , 'en cours' , 1254 );
+
+select * from commandes ;
